@@ -1,5 +1,6 @@
 package com.jc.restfulwebservices.socialmediaapp;
 
+import com.jc.restfulwebservices.socialmediaapp.exceptions.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
