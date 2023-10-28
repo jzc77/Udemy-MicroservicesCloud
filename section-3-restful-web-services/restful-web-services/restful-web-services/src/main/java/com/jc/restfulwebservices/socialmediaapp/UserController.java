@@ -41,4 +41,9 @@ public class UserController {  // The video calls this class "UserResource"
                         .toUri();  // convert to URI, which you can see in header of the response
         return ResponseEntity.created(location).build();  // Can see "201 Created" in response status
     }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        service.deleteUserById(id);
+    }
 }
