@@ -15,3 +15,24 @@ request to the appropriate controller method.
 - **PATCH**:
   - used to apply partial modifications to a resource
   - idempotent (multiple requests have the same effect as a single request)
+
+## Static blocks
+- A static block, also known as a "static initializer," is a special type of block that is used to initialize static variables in a class.
+- The block is executed only once when the class is loaded into memory (executed before the class's constructor or any other method)
+- ```
+  // Basic syntax of a static block
+  
+  public class MyClass {
+    static {
+        // Static initialization code goes here
+    }
+
+    // Other class members (fields, methods, constructors) go here
+  }
+  ```
+
+## ++usersCount vs usersCount++
+- **++usersCount**
+  - Increments value of usersCount by 1 __before__ the value is used in an expression
+- **usersCount++**
+  - Increments value of usersCount by 1 __after__ the value is used in an expression
