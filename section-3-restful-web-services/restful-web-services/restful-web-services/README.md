@@ -36,3 +36,22 @@ request to the appropriate controller method.
   - Increments value of usersCount by 1 __before__ the value is used in an expression
 - **usersCount++**
   - Increments value of usersCount by 1 __after__ the value is used in an expression
+
+## extends and @Override
+- When I extend "ResponseEntityExceptionHandler", I can use @Override annotation to override a method in the ResponseEntityExceptionHandler class.
+- The @Override annotation is to "[indicate] that a method declaration is intended to override a method declaration in a supertype."
+
+## Advanced REST API features
+- **Documentation**
+  - springdoc-openapi - Java library that helps to automate the generation of API documentation using spring boot projects
+- **Content negotiation**
+  - Enables client to specify what type of data to receive (e.g. JSON or XML)
+  - Client specifies this in Accept header (e.g. Accept header value can be "application/xml")
+- **Internationalization (i18n)**
+  - Enables client to specify what language of data to receive
+  - Makes use of MessageSource class, messages.properties, and Accept-Language header (see /helloworld/HelloWorldController.java)
+- **Versioning**
+- **HATEOAS**
+- **Static filtering**
+- **Dynamic filtering**
+- **Monitoring**

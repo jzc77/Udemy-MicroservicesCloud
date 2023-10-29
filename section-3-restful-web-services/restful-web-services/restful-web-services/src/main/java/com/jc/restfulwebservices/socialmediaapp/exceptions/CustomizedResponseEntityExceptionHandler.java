@@ -1,16 +1,20 @@
 package com.jc.restfulwebservices.socialmediaapp.exceptions;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class CustomizedResponseEntityExceptionHandler {
+public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)  // Defining what exceptions to handle. In this case, all exceptions.
     public final ResponseEntity<ErrorDetails> handleAllExceptions(Exception ex, WebRequest request)  {  // Return a customized error response structure (ErrorDetails.java) and response status
@@ -22,5 +26,11 @@ public class CustomizedResponseEntityExceptionHandler {
     public final ResponseEntity<ErrorDetails> handleUserNotFoundExceptions(Exception ex, WebRequest request)  {
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getFieldError().getDefaultMessage(), request.getDescription(false));  // Returning message set in User.java
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }
