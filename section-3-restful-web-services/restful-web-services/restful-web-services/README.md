@@ -51,6 +51,12 @@ request to the appropriate controller method.
   - Enables client to specify what language of data to receive
   - Makes use of MessageSource class, messages.properties, and Accept-Language header (see /helloworld/HelloWorldController.java)
 - **Versioning**
+  - Used when you need to implement a breaking change to your REST API for your clients
+  - Different types of versioning options:
+    - URL (used by Twitter)
+    - Request parameter (used by Amazon)
+    - Header (used by Microsoft)
+    - Media Type (used by GitHub)
 - **HATEOAS**
 - **Static filtering**
 - **Dynamic filtering**
