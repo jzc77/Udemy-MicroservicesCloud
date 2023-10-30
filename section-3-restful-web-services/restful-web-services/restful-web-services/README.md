@@ -58,6 +58,10 @@ request to the appropriate controller method.
     - Header (used by Microsoft)
     - Media Type (used by GitHub)
 - **HATEOAS**
+  - Hypermedia as the Engine of Application State
+  - In addition to returning data in response body, we can use HATEOAS to return links that tell consumers how to perform subsequent actions.
+  - E.g. Along with retrieving a user's name and birthdate in the response via `http://localhost:8080/users/{id}`, you can also include a link in the response to retrieve all users (e.g. `http://localhost:8080/users`)
+  - Makes use of EntityModel and WebMvcLinkBuilder in controller class (see UserController.java)
 - **Static filtering**
 - **Dynamic filtering**
 - **Monitoring**
