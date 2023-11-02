@@ -67,4 +67,7 @@ request to the appropriate controller method.
   - Useful when fields are not relevant for clients or contain sensitive info
   - Use @JsonIgnoreProperties, @JsonIgnore
 - **Dynamic filtering**
+  - Allows clients to specify which fields they want to include or exclude in the API response
+  - Gives clients more control over the data they receive
+  - Use @JsonFilter with FilterProvider
 - **Monitoring**
