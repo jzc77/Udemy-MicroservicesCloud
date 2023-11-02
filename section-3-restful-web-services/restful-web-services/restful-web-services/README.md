@@ -63,5 +63,8 @@ request to the appropriate controller method.
   - E.g. Along with retrieving a user's name and birthdate in the response via `http://localhost:8080/users/{id}`, you can also include a link in the response to retrieve all users (e.g. `http://localhost:8080/users`)
   - Makes use of EntityModel and WebMvcLinkBuilder in controller class (see UserController.java)
 - **Static filtering**
+  - Excluding or filtering out specific fields or properties from the response data
+  - Useful when fields are not relevant for clients or contain sensitive info
+  - Use @JsonIgnoreProperties, @JsonIgnore
 - **Dynamic filtering**
 - **Monitoring**
