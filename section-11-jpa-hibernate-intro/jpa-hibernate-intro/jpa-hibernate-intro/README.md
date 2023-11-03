@@ -1,5 +1,5 @@
 # Section 11 notes: JPA and Hibernate introduction
 
-## xxx
-- xxx
-- xxx
+## @PersistenceContext
+- @PersistenceContext is more specific than @Autowired
+- E.g. use with EntityManager and JPA (see CourseJpaRepository.java)
