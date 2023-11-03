@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public class CourseJpaRepository {
 
     @PersistenceContext  // More specific than @Autowired
-    private EntityManager entityManager;  // Manages entity (e.g. Course.java)
+    private EntityManager entityManager;  // Manages JPA entity (e.g. Course.java)
 
     public void insert(Course course) {
         entityManager.merge(course);  // All mappings have been done for you behind the scenes
