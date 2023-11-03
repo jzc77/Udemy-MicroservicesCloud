@@ -2,6 +2,7 @@ package com.jc.jpahibernateintro.jpahibernateintro.course.jdbc;
 
 import com.jc.jpahibernateintro.jpahibernateintro.course.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -24,11 +25,23 @@ public class CourseJdbcRepository {
                 where id = ?
             """;
 
+    private static String SELECT_QUERY =
+            """
+                select * from course
+                where id = ?
+            """;
+
     public void insert(Course course) {
         springJdbcTemplate.update(INSERT_QUERY, course.getId(), course.getName(), course.getAuthor());
     }
 
     public void deleteById(long id) {
         springJdbcTemplate.update(DELETE_QUERY, id);
+    }
+
+    public Course findById(long id) {
+        // BeanPropertyRowMapper is used to map the queried results to a bean (e.g. Course.java)
+        Course course = springJdbcTemplate.queryForObject(SELECT_QUERY, new BeanPropertyRowMapper<>(Course.class), id);
+        return course;
     }
 }
