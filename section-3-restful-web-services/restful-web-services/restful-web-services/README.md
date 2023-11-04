@@ -71,3 +71,5 @@ request to the appropriate controller method.
   - Gives clients more control over the data they receive
   - Use @JsonFilter with FilterProvider
 - **Monitoring**
+  - Actuator
+  - HAL Explorer
