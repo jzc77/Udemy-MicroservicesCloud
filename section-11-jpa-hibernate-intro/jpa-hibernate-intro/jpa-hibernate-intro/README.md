@@ -13,4 +13,5 @@
     - Makes use of EntityManager interface (methods include .merge() for inserting, .find(), and .remove())
   - **Spring Data JPA**
     - Reduce manual configuration by providing repository interfaces to help with common use cases for data accessing
+    - EntityManager is abstracted away
     - Provides features like query methods, which generate SQL queries based on method names

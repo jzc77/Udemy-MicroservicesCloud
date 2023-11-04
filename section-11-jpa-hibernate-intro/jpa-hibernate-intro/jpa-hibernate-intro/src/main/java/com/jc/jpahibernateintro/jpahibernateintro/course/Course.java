@@ -1,6 +1,5 @@
 package com.jc.jpahibernateintro.jpahibernateintro.course;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
