@@ -1,5 +1,6 @@
 package com.jc.restfulwebservices.socialmediaapp;
 
+import com.jc.restfulwebservices.socialmediaapp.entities.User;
 import com.jc.restfulwebservices.socialmediaapp.exceptions.UserNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.EntityModel;

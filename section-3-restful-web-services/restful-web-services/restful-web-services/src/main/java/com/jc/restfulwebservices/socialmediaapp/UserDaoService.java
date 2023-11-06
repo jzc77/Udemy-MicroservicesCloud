@@ -1,5 +1,6 @@
 package com.jc.restfulwebservices.socialmediaapp;
 
+import com.jc.restfulwebservices.socialmediaapp.entities.User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
