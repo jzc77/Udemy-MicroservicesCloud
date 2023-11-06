@@ -1,5 +1,6 @@
 package com.jc.restfulwebservices.socialmediaapp;
 
+import com.jc.restfulwebservices.socialmediaapp.entities.Post;
 import com.jc.restfulwebservices.socialmediaapp.entities.User;
 import com.jc.restfulwebservices.socialmediaapp.exceptions.UserNotFoundException;
 import jakarta.validation.Valid;
@@ -55,5 +56,16 @@ public class UserJpaController {
     @DeleteMapping("/jpa/users/{id}")
     public void deleteUser(@PathVariable int id) {
         repository.deleteById(id);
+    }
+
+    @GetMapping("/jpa/users/{id}/posts")
+    public List<Post> retrievePostsForUser(@PathVariable int id) {
+        // Find user. If user exists, find the user's posts.
+        Optional<User> user = repository.findById(id);
+        if(user.isEmpty()) {
+            throw new UserNotFoundException("id: " + id);
+        }
+
+        return user.get().getPosts();
     }
 }
