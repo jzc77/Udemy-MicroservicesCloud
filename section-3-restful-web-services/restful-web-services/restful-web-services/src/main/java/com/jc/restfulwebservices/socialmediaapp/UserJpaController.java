@@ -3,6 +3,8 @@ package com.jc.restfulwebservices.socialmediaapp;
 import com.jc.restfulwebservices.socialmediaapp.entities.Post;
 import com.jc.restfulwebservices.socialmediaapp.entities.User;
 import com.jc.restfulwebservices.socialmediaapp.exceptions.UserNotFoundException;
+import com.jc.restfulwebservices.socialmediaapp.repositories.PostRepository;
+import com.jc.restfulwebservices.socialmediaapp.repositories.UserJpaRepository;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -19,9 +21,10 @@ public class UserJpaController {
     //private UserDaoService service;  // Don't need this anymore because JPA repository is used now
 
     private UserJpaRepository repository;
-
-    public UserJpaController(UserJpaRepository repository) {
+    private PostRepository postRepository;
+    public UserJpaController(UserJpaRepository repository, PostRepository postRepository) {
         this.repository = repository;
+        this.postRepository = postRepository;
     }
 
     @GetMapping("/jpa/users")
@@ -46,7 +49,7 @@ public class UserJpaController {
     @PostMapping("/jpa/users")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = repository.save(user);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()  // get current path e.g. "/users"...
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()  // get current path e.g. "/jpa/users"...
                         .path("/{id}")// ...and add "/{id}" path...
                         .buildAndExpand(savedUser.getId()) // ...and replace id with the created user's id
                         .toUri();  // convert to URI, which you can see in header of the response
@@ -67,5 +70,23 @@ public class UserJpaController {
         }
 
         return user.get().getPosts();
+    }
+
+    @PostMapping("/jpa/users/{id}/posts")
+    public ResponseEntity<Post> createPostForUser(@PathVariable int id, @Valid @RequestBody Post post) {  // A method to create a post
+        // Find user. If user exists, set the user to their post.
+        Optional<User> user = repository.findById(id);
+        if(user.isEmpty()) {
+            throw new UserNotFoundException("id: " + id);
+        }
+
+        post.setUser(user.get());
+        Post savedPost = postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()  // get current path e.g. "/jpa/users/{id}/posts"...
+                .path("/{id}")// ...and add "/{id}" path...
+                .buildAndExpand(savedPost.getId()) // ...and replace id with the found user's id
+                .toUri();  // convert to URI, which you can see in header of the response
+        return ResponseEntity.created(location).build();
     }
 }
