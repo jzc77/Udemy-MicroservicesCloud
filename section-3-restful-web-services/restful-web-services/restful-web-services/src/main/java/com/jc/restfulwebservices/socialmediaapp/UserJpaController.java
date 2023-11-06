@@ -20,21 +20,21 @@ import java.util.Optional;
 public class UserJpaController {
     //private UserDaoService service;  // Don't need this anymore because JPA repository is used now
 
-    private UserJpaRepository repository;
+    private UserJpaRepository userRepository;
     private PostRepository postRepository;
-    public UserJpaController(UserJpaRepository repository, PostRepository postRepository) {
-        this.repository = repository;
+    public UserJpaController(UserJpaRepository userRepository, PostRepository postRepository) {
+        this.userRepository = userRepository;
         this.postRepository = postRepository;
     }
 
     @GetMapping("/jpa/users")
     public List<User> retrieveAllUsers() {
-        return repository.findAll();
+        return userRepository.findAll();
     }
 
     @GetMapping("/jpa/users/{id}")
     public EntityModel<User> retrieveUser(@PathVariable int id) {
-        Optional<User> user = repository.findById(id);
+        Optional<User> user = userRepository.findById(id);
 
         if (user.isEmpty()) {
             throw new UserNotFoundException("id: " + id);
@@ -48,7 +48,7 @@ public class UserJpaController {
 
     @PostMapping("/jpa/users")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User savedUser = repository.save(user);
+        User savedUser = userRepository.save(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()  // get current path e.g. "/jpa/users"...
                         .path("/{id}")// ...and add "/{id}" path...
                         .buildAndExpand(savedUser.getId()) // ...and replace id with the created user's id
@@ -58,13 +58,13 @@ public class UserJpaController {
 
     @DeleteMapping("/jpa/users/{id}")
     public void deleteUser(@PathVariable int id) {
-        repository.deleteById(id);
+        userRepository.deleteById(id);
     }
 
     @GetMapping("/jpa/users/{id}/posts")
     public List<Post> retrievePostsForUser(@PathVariable int id) {
         // Find user. If user exists, find the user's posts.
-        Optional<User> user = repository.findById(id);
+        Optional<User> user = userRepository.findById(id);
         if(user.isEmpty()) {
             throw new UserNotFoundException("id: " + id);
         }
@@ -75,7 +75,7 @@ public class UserJpaController {
     @PostMapping("/jpa/users/{id}/posts")
     public ResponseEntity<Post> createPostForUser(@PathVariable int id, @Valid @RequestBody Post post) {  // A method to create a post
         // Find user. If user exists, set the user to their post.
-        Optional<User> user = repository.findById(id);
+        Optional<User> user = userRepository.findById(id);
         if(user.isEmpty()) {
             throw new UserNotFoundException("id: " + id);
         }
