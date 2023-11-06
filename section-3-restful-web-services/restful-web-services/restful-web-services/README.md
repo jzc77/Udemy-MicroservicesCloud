@@ -73,3 +73,10 @@ request to the appropriate controller method.
 - **Monitoring**
   - Actuator
   - HAL Explorer
+
+## Spring security
+- Spring security intercepts each URL request, and it would execute a series of filters.
+- The series of filters are called "filter chains". There are a series of checks done in the filter chains:
+  - Checks that all requests are authenticated
+  - If a request is not authenticated, show a login web page
+  - Check for CSRF (Cross-Site Request Forgery) (which would impact POST and PUT requests) and disable it
