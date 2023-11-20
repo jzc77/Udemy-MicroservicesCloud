@@ -8,3 +8,8 @@
 ### Stubs vs Mocks
 - Stub: A class that have methods which return a pre-determined response
 - Mock: A stub with an assertion
+
+### Errors and fixes
+- `java.lang.NullPointerException: Cannot invoke "com.jc.mockito.mockitointro.business.DataService.retrieveAllData()" because "this.dataServiceMock" is null
+  `
+  - In the test class, add `@ExtendsWith(MockitoExtension.class)`
